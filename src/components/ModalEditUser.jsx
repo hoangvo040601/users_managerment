@@ -4,10 +4,11 @@ import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 // import { postCrateUser } from '../sevices/UserService';
 // import { toast } from 'react-toastify';
-
+import { putUpdateUser } from '../sevices/UserService'
+import { toast } from 'react-toastify';
 
 const ModalEditUser = (props) => {
-  const { show, handleClose, dataUserEdit} = props;
+  const { show, handleClose, dataUserEdit, handleUpdateUserFromModle } = props;
   const [name, setName] = useState('');
   const [job, setJob] = useState('');
 
@@ -18,21 +19,37 @@ const ModalEditUser = (props) => {
     setJob(e.target.value);
   }
 
-  const handleEditUser =()=>{
-
+  const handleEditUser = async () => {
+    let res = await putUpdateUser(name, job)
+    if (res && res.updatedAt) {
+      //ss
+      handleUpdateUserFromModle({
+        first_name: name,
+        id: dataUserEdit.id
+      })
+      handleClose();
+      toast.success('Update succeed!')
+    } else {
+      //er
+      toast.error('User not succeed!')
+    }
   }
 
-  useEffect(()=>{
-      if(show){
-          setName(dataUserEdit.first_name)
-          setJob(dataUserEdit.job);
-      }
-      
-    },[dataUserEdit])
-    console.log(dataUserEdit)
+  useEffect(() => {
+    if (show) {
+      setName(dataUserEdit.first_name)
+      setJob(dataUserEdit.job);
+    }
+
+  }, [dataUserEdit])
+  // console.log(dataUserEdit)
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>Edit a user</Modal.Title>
         </Modal.Header>

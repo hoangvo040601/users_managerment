@@ -7,4 +7,12 @@ const fetchAllUser = (page)=>{
 const postCrateUser = (name,job)=>{
     return axios.post('/api/users',{name,job})
 }
-export {fetchAllUser, postCrateUser};
+
+const putUpdateUser =(name,job)=>{
+    return axios.put('/api/users',{name,job})
+}
+
+const deleteUser =(id)=>{
+    return axios.delete(`/api/users/${id}`)
+}
+export {fetchAllUser, postCrateUser, putUpdateUser, deleteUser};
