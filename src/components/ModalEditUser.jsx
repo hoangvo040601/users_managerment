@@ -1,9 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// import Form from 'react-bootstrap/Form';
 import { useEffect, useState } from 'react';
-// import { postCrateUser } from '../sevices/UserService';
-// import { toast } from 'react-toastify';
 import { putUpdateUser } from '../sevices/UserService'
 import { toast } from 'react-toastify';
 
@@ -42,7 +39,7 @@ const ModalEditUser = (props) => {
     }
 
   }, [dataUserEdit])
-  // console.log(dataUserEdit)
+
   return (
     <>
       <Modal
