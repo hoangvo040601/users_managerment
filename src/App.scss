@@ -1,6 +1,78 @@
-*{
+* {
     box-sizing: border-box;
-    padding:0;
+    padding: 0;
     margin: 0;
 }
 
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    .login-title {
+        text-align: center;
+        font-size: 23px;
+        font-weight: 600;
+        padding-top: 30px;
+    }
+
+    .login-text {
+        font-weight: 600;
+        font-size: 15px;
+        padding: 3px;
+    }
+
+    .login-emailOrName {
+        width: 100%;
+        padding: 15px 7px;
+        outline: none;
+        margin-bottom: 5px;
+        border-radius: 3px;
+        border: 1px solid #efefef;
+        background-color: #efefef;
+
+        &:hover {
+            background-color: #dedede;
+        }
+    }
+    .login-password{
+        position: relative;
+        .input-password{
+            position: absolute;
+            top:18px;
+            right:10px;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+    }
+
+    .login-confirm {
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 3px;
+        border: none;
+        outline: none;
+        &.active {
+            background-color: #fe2c55;
+            color: #fff;
+        }
+
+    }
+    .login-goback{
+        text-align: center;
+        padding-top: 15px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+    button[disabled=disabled], button:disabled {
+       cursor: not-allowed;
+        background-color: rgb(229, 229, 229) !important;
+    }
+
+}
+
+
+// login-emailOrName
+// login-emailOrName
+// login-confirm
+// login-goback
