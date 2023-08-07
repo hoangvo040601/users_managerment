@@ -3,10 +3,22 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import logoApp from '../assets/images/logo.png';
-import { useLocation, NavLink } from 'react-router-dom';
+import { useLocation, NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useContext } from 'react';
+import { UserContext } from '../context/useContext';
 
 const Header = (props) => {
+    const { user, logout } = useContext(UserContext);
+
+    const navigate = useNavigate()
     let location = useLocation();
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+        toast.success("Log out successfully!");
+    }
     return (
         <>
             <Navbar
@@ -28,34 +40,29 @@ const Header = (props) => {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav
-                            className="me-auto"
-                            activeKey={location.pathname}>
-
-                            <NavLink
-                                to="/"
-                                className="nav-link"
-                            >
-                                Home
-                            </NavLink>
-
-                            <NavLink
-                                to="/user"
-                                className="nav-link"
-                            >
-                                Manage User
-                            </NavLink>
-
-
-                        </Nav>
-                        <Nav>
-                            <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-                                <NavDropdown.Item href="/logout">
-                                    Logout
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
+                        {(user && user.auth || window.location.pathname === '/') &&
+                            <>
+                                <Nav className="me-auto" activeKey={location.pathname}>
+                                    <NavLink to="/" className="nav-link"> Home</NavLink>
+                                    <NavLink to="/user" className="nav-link" >Manage User </NavLink>
+                                </Nav>
+                                <Nav>
+                                    {(user && user.email && user.email!==null) ? <span className="nav-link">Welcome {user.email}</span>: ''}
+                                    {console.log(user.email)}
+                                    <NavDropdown title="Setting">
+                                        {user && user.auth === true ?
+                                            <NavDropdown.Item onClick={() => handleLogout()} >
+                                                Logout
+                                            </NavDropdown.Item> :
+                                            <NavLink
+                                                to="/login"
+                                                className="dropdown-item" >Login
+                                            </NavLink>
+                                        }
+                                    </NavDropdown>
+                                </Nav>
+                            </>
+                        }
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

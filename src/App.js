@@ -1,29 +1,25 @@
 import './App.scss';
 import Header from './components/Header';
-import TableUser from './components/TableUser';
 import Container from 'react-bootstrap/Container';
 import { ToastContainer } from 'react-toastify';
-import {
-  Link,
-  Route,
-  RouterProvider,
-  Routes,
-} from "react-router-dom";
-import Home from './components/Home';
-import Login from './components/Login';
+import { useContext, useEffect } from 'react';
+import { UserContext } from './context/useContext';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
+  const { user, loginContext } = useContext(UserContext);
+
+  useEffect(() => {
+    loginContext(localStorage.getItem("item"), localStorage.getItem('email'))
+  }, [])
+
   return (
     <>
 
       <div className="app-container">
         <Header />
         <Container>
-          <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/user" element={<TableUser/>} />
-            <Route path="/login" element={<Login/>} />
-          </Routes>
+          <AppRoutes />
         </Container>
 
         <ToastContainer
