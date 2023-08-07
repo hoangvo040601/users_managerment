@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/useContext";
 
 const Login = (props) => {
-  const {loginContext} = useContext(UserContext);
+    const { loginContext } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -23,9 +23,9 @@ const Login = (props) => {
             return;
         }
         setLoaddingApi(true)
-        let res = await loginApi(email, password)
+        let res = await loginApi(email.trim(), password)
         if (res && res.token) {
-            loginContext(email,res.token)
+            loginContext(email, res.token)
             navigate("/");
         } else {
             if (res && res.status === 400) {
@@ -47,6 +47,14 @@ const Login = (props) => {
         navigate('/');
     }
 
+
+    const handleKeyDown = (event) => {
+        if (event && event.key === 'Enter') {
+            handleLogin();
+           
+        }
+    }
+
     return (
         <div className="login-container col-12 col-sm-4">
             <div className="login-title">Login (eve.holt@reqres.in)</div>
@@ -66,6 +74,8 @@ const Login = (props) => {
                     placeholder="Enter Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={(event) => handleKeyDown(event)}
+
                 />
                 <i
                     className={isShowPasswords === true ? "fa-solid fa-eye input-password" : "fa-solid fa-eye-slash input-password"}
@@ -84,7 +94,7 @@ const Login = (props) => {
             </button>
             <div className="login-goback">
                 <i className="fa-solid fa-arrow-left "></i>
-                <span onClick={()=>handleGoback()}> &nbsp; Go back</span>
+                <span onClick={() => handleGoback()}> &nbsp; Go back</span>
             </div>
         </div>
     )

@@ -8,7 +8,7 @@
 }
 
 .add-new{
-    display: flex;
+    // display: flex;
     justify-content: space-between;
     align-items: center;
     .btn-groups{
@@ -19,4 +19,10 @@
             padding : 0 3px;
         }
     }
+}
+.customize-table{
+    overflow-x: auto;
+}
+.pagination{
+    justify-content:center;
 }

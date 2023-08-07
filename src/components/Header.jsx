@@ -48,7 +48,6 @@ const Header = (props) => {
                                 </Nav>
                                 <Nav>
                                     {(user && user.email && user.email!==null) ? <span className="nav-link">Welcome {user.email}</span>: ''}
-                                    {console.log(user.email)}
                                     <NavDropdown title="Setting">
                                         {user && user.auth === true ?
                                             <NavDropdown.Item onClick={() => handleLogout()} >
